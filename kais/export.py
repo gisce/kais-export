@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from djcopybook.fixedwidth import Record
 from djcopybook.fixedwidth import fields
 
@@ -8,11 +10,15 @@ class NullDecimalField(fields.DecimalField):
         if val is None:
             return fields.str_padding(self.length, '')
         else:
+            val = round(val, 2)
             return super(NullDecimalField, self).to_record(val)
 
 
 class StringFieldAutoTruncated(fields.StringField):
-    auto_truncate = True
+
+    def to_record(self, val):
+        self.auto_truncate = True
+        return super(StringFieldAutoTruncated, self).to_record(val)
 
 
 class AccountMoveLine(Record):
@@ -183,6 +189,6 @@ if __name__ == '__main__':
         codi_compte="70000004",
         diari="01",
         num_provisional=4353,
-        descr_compte="Vendes energia"
+        descr_compte="Hacienda Pública. IVA repercutido 21%"
     )
     print(m.to_record())
