@@ -154,7 +154,7 @@ class AccountMoveLine(Record):
     centretext3 = StringFieldAutoTruncated(length=35)
     centrecodi4 = StringFieldAutoTruncated(length=16)
     centretext4 = StringFieldAutoTruncated(length=35)
-    centrecodi5 = StringFieldAutoTruncated(length=35)
+    centrecodi5 = StringFieldAutoTruncated(length=16)
     centretext5 = StringFieldAutoTruncated(length=35)
     seriefra = StringFieldAutoTruncated(length=2)
     dia_nom = StringFieldAutoTruncated(length=40)
