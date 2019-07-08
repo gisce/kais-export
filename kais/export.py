@@ -14,6 +14,22 @@ class NullDecimalField(fields.DecimalField):
             return super(NullDecimalField, self).to_record(val)
 
 
+class SignedNullDecimalField(fields.DecimalField):
+
+    def to_record(self, val):
+        if val is None:
+            return fields.str_padding(self.length, '')
+        else:
+            val = round(val, 2)
+            negative = val < 0
+            val = abs(val)
+            res = super(SignedNullDecimalField, self).to_record(val)
+            if negative:
+                res = list(res)
+                res[0] = '-'
+            return ''.join(res)
+
+
 class StringFieldAutoTruncated(fields.StringField):
 
     def to_record(self, val):
@@ -29,8 +45,8 @@ class AccountMoveLine(Record):
     document = StringFieldAutoTruncated(length=10)
     codi_cto = StringFieldAutoTruncated(length=2)
     descr_cto = StringFieldAutoTruncated(length=30)
-    deure = NullDecimalField(length=16, decimals=6)
-    haver = NullDecimalField(length=16, decimals=6)
+    deure = SignedNullDecimalField(length=16, decimals=6)
+    haver = SignedNullDecimalField(length=16, decimals=6)
     codi_compte = StringFieldAutoTruncated(length=12)
     diari = StringFieldAutoTruncated(length=2)
     num_provisional = NullDecimalField(length=6, decimals=0)
