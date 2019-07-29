@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='kais-export',
-    version='0.2.0',
+    version='0.2.1',
     packages=find_packages(),
     url='https://github.com/gisce/kais-export',
     license='GPLv2',
